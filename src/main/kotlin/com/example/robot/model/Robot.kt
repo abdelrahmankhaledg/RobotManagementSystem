@@ -21,9 +21,8 @@ data class Robot(
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "SERIAL_NUMBER", referencedColumnName = "SERIAL_NUMBER")
     val robotDynamicState : RobotDynamicState
-
-
-){
+)
+{
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
