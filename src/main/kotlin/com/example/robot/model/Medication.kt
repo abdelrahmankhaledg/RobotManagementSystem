@@ -21,5 +21,22 @@ data class Medication(
     @Column(name = "IMAGE_URL")
     val imageUrl : String
 
+
 ) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Medication
+
+        return name == other.name
+    }
+
+    override fun hashCode(): Int {
+        return name.hashCode()
+    }
+
+    override fun toString(): String {
+        return "Medication(name='$name', code='$code', weight=$weight, imageUrl='$imageUrl')"
+    }
 }

@@ -23,4 +23,21 @@ data class Robot(
 
 
 ){
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Robot
+
+        return serialNumber == other.serialNumber
+    }
+
+    override fun hashCode(): Int {
+        return serialNumber.hashCode()
+    }
+
+    override fun toString(): String {
+        return "Robot(serialNumber='$serialNumber', robotModel=$robotModel, weightLimit=$weightLimit, robotDynamicState=$robotDynamicState)"
+    }
+
 }
