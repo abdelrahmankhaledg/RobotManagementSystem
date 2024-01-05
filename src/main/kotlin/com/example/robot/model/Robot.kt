@@ -19,6 +19,7 @@ data class Robot(
     val weightLimit : Int,
 
     @OneToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "SERIAL_NUMBER", referencedColumnName = "SERIAL_NUMBER")
     val robotDynamicState : RobotDynamicState
 
 
