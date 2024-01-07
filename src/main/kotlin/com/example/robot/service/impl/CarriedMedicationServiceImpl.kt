@@ -56,9 +56,8 @@ class CarriedMedicationServiceImpl(
         robotDynamicStateRepository.save(robot.robotDynamicState)
     }
 
-    override fun getLoadedMedication(serialNumber: String): List<String>? {
+    override fun getLoadedMedication(serialNumber: String): List<String> {
         return carriedMedicationRepository.getLoadedMedication(serialNumber)
-        //TODO handle the null response
     }
 
 }

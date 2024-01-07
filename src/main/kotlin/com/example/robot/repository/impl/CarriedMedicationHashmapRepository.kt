@@ -13,7 +13,7 @@ class CarriedMedicationHashmapRepository(
         carriedMedication[serialNumber] = medicationNames
     }
 
-    override fun getLoadedMedication(serialNumber: String): List<String>? {
-        return carriedMedication[serialNumber]
+    override fun getLoadedMedication(serialNumber: String): List<String> {
+        return carriedMedication[serialNumber] ?: emptyList()
     }
 }
