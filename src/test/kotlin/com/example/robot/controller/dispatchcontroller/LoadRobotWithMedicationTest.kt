@@ -3,6 +3,7 @@ package com.example.robot.controller.dispatchcontroller
 import com.example.robot.reponse.enums.ResponseEnum
 import com.example.robot.resource.LoadRobotWithMedicationResource
 import com.example.robot.service.CarriedMedicationService
+import com.example.robot.service.RobotService
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
@@ -20,6 +21,8 @@ class LoadRobotWithMedicationTest (@Autowired val mockMvc : MockMvc){
 
     @MockkBean
     lateinit var carriedMedicationService: CarriedMedicationService
+    @MockkBean
+    lateinit var robotService: RobotService
 
     private val serialNumber : String = "ABC123"
     private val medicationNames : List<String> = arrayListOf("PANADOL", "ADOL", "BRUFEN")
