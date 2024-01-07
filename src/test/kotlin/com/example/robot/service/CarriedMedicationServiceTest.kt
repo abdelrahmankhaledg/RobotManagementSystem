@@ -87,7 +87,7 @@ class CarriedMedicationServiceTest() {
 
     @Test
     fun getLoadedMedicationForNotLoadedRobot(){
-        every { carriedMedicationRepository.getLoadedMedication(serialNumber) } returns null
-        assert(carriedMedicationService.getLoadedMedication(serialNumber) == null)
+        every { carriedMedicationRepository.getLoadedMedication(serialNumber) } returns emptyList()
+        assert(carriedMedicationService.getLoadedMedication(serialNumber).isEmpty())
     }
 }
