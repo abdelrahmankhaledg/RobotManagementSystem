@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface RobotRepository : CrudRepository<Robot, String> {
-    @Query("SELECT R.batteryCapacity from ROBOT R WHERE R.serialNumber = :serialNumber")
+    @Query("SELECT R.robotDynamicState.batteryCapacity from Robot R WHERE R.serialNumber = :serialNumber")
     fun findBatteryCapacity(serialNumber : String): Int
 
 
-    @Query("SELECT R from ROBOT R where R.robotState = 'IDLE' and R.batteryCapacity > 25")
+    @Query("SELECT R from Robot R where R.robotDynamicState.robotState = 'IDLE' and R.robotDynamicState.batteryCapacity > 25")
     fun findAvailableRobotsForLoading() : List<Robot>
 }
