@@ -10,18 +10,18 @@ import com.example.robot.repository.CarriedMedicationRepository
 import com.example.robot.repository.MedicationRepository
 import com.example.robot.repository.RobotDynamicStateRepository
 import com.example.robot.repository.RobotRepository
-import com.example.robot.service.CarriedMedication
+import com.example.robot.service.CarriedMedicationService
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
-class CarriedMedicationImpl(
+class CarriedMedicationServiceImpl(
         private val robotRepository: RobotRepository,
         private val robotDynamicStateRepository: RobotDynamicStateRepository,
         private val medicationRepository: MedicationRepository,
         private val carriedMedicationRepository: CarriedMedicationRepository
-    ) : CarriedMedication
+    ) : CarriedMedicationService
 {
     @Transactional
     override fun loadRobotWithMedication(serialNumber: String, medicationNames: List<String>): Unit {

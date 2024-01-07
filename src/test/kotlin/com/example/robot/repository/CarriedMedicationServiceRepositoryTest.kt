@@ -4,7 +4,7 @@ import com.example.robot.repository.impl.CarriedMedicationHashmapRepository
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class CarriedMedicationRepositoryTest() {
+class CarriedMedicationServiceRepositoryTest() {
     private val carriedMedicationRepository: CarriedMedicationHashmapRepository = CarriedMedicationHashmapRepository()
     private val serialNumber : String = "ABC123"
     private val medicationNames : List<String> = arrayListOf("PANADOL", "ADOL", "BRUFEN")

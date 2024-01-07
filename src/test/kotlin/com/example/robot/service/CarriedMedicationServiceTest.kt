@@ -11,7 +11,7 @@ import com.example.robot.repository.CarriedMedicationRepository
 import com.example.robot.repository.MedicationRepository
 import com.example.robot.repository.RobotDynamicStateRepository
 import com.example.robot.repository.RobotRepository
-import com.example.robot.service.impl.CarriedMedicationImpl
+import com.example.robot.service.impl.CarriedMedicationServiceImpl
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Test
@@ -19,12 +19,12 @@ import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import org.springframework.data.repository.findByIdOrNull
 
-class CarriedMedicationTest() {
+class CarriedMedicationServiceTest() {
     private val robotRepository: RobotRepository = mockk()
     private val robotDynamicStateRepository: RobotDynamicStateRepository = mockk()
     private val medicationRepository: MedicationRepository = mockk()
     private val carriedMedicationRepository: CarriedMedicationRepository = mockk()
-    private val carriedMedication: CarriedMedication = CarriedMedicationImpl(
+    private val carriedMedicationService: CarriedMedicationService = CarriedMedicationServiceImpl(
         robotRepository = robotRepository,
         robotDynamicStateRepository = robotDynamicStateRepository,
         medicationRepository = medicationRepository,
@@ -50,44 +50,44 @@ class CarriedMedicationTest() {
         every { medicationRepository.findMedicationsWeight(medicationNames)} returns robot.weightLimit - 1
         every { robotDynamicStateRepository.save(any())} returns robot.robotDynamicState
         every { carriedMedicationRepository.storeLoadedMedication(serialNumber, medicationNames) } returns Unit
-        assertDoesNotThrow { carriedMedication.loadRobotWithMedication(serialNumber, medicationNames) }
+        assertDoesNotThrow { carriedMedicationService.loadRobotWithMedication(serialNumber, medicationNames) }
     }
     @Test
     fun loadNonExistentRobotWithMedication(){
         every { robotRepository.findByIdOrNull(serialNumber) } returns null
-        assertThrows<RobotNotFoundException> { carriedMedication.loadRobotWithMedication(serialNumber, medicationNames) }
+        assertThrows<RobotNotFoundException> { carriedMedicationService.loadRobotWithMedication(serialNumber, medicationNames) }
     }
 
     @Test
     fun loadNotIdleRobotWithMedication(){
         robot.robotDynamicState.robotState = RobotState.LOADING
         every { robotRepository.findByIdOrNull(serialNumber) } returns robot
-        assertThrows<RobotCannotBeLoadedException> { carriedMedication.loadRobotWithMedication(serialNumber, medicationNames) }
+        assertThrows<RobotCannotBeLoadedException> { carriedMedicationService.loadRobotWithMedication(serialNumber, medicationNames) }
     }
 
     @Test
     fun loadLowBatteryRobotWithMedication(){
         robot.robotDynamicState.batteryCapacity = 25
         every { robotRepository.findByIdOrNull(serialNumber) } returns robot
-        assertThrows<RobotCannotBeLoadedException> { carriedMedication.loadRobotWithMedication(serialNumber, medicationNames) }
+        assertThrows<RobotCannotBeLoadedException> { carriedMedicationService.loadRobotWithMedication(serialNumber, medicationNames) }
     }
 
     @Test
     fun overloadRobot() {
         every { robotRepository.findByIdOrNull(serialNumber) } returns robot
         every { medicationRepository.findMedicationsWeight(medicationNames)} returns robot.weightLimit + 1
-        assertThrows<WeightLimitExceededException> { carriedMedication.loadRobotWithMedication(serialNumber, medicationNames)}
+        assertThrows<WeightLimitExceededException> { carriedMedicationService.loadRobotWithMedication(serialNumber, medicationNames)}
     }
 
     @Test
     fun getLoadedMedicationHappy(){
         every { carriedMedicationRepository.getLoadedMedication(serialNumber) } returns medicationNames
-        assert(carriedMedication.getLoadedMedication(serialNumber) == medicationNames)
+        assert(carriedMedicationService.getLoadedMedication(serialNumber) == medicationNames)
     }
 
     @Test
     fun getLoadedMedicationForNotLoadedRobot(){
         every { carriedMedicationRepository.getLoadedMedication(serialNumber) } returns null
-        assert(carriedMedication.getLoadedMedication(serialNumber) == null)
+        assert(carriedMedicationService.getLoadedMedication(serialNumber) == null)
     }
 }

@@ -1,7 +1,7 @@
 package com.example.robot.service
 
 
-interface CarriedMedication {
+interface CarriedMedicationService {
     fun loadRobotWithMedication(serialNumber : String, medicationNames : List<String>)
     fun getLoadedMedication(serialNumber : String) : List<String>?
 }
