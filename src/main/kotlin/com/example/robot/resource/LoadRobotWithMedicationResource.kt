@@ -9,7 +9,6 @@ import org.springframework.validation.annotation.Validated
 
 @Validated
 data class LoadRobotWithMedicationResource (
-    @field:NotBlank(message = "The serial number of the robot cannot be empty")
     @field:SerialNumber
     val serialNumber : String?,
 
