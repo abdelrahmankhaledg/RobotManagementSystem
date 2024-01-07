@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface MedicationRepository : CrudRepository<Medication, String>{
-    @Query("SELECT SUM(M.WEIGHT) FROM MEDICATION M WHERE MEDICATION_NAME IN :medicationNames")
+    @Query("SELECT SUM(M.weight) FROM Medication M WHERE M.name IN :medicationNames")
     fun findMedicationsWeight(medicationNames : List<String>) : Int
 }
