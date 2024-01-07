@@ -1,9 +1,10 @@
-package com.example.robot.exception.enums
+package com.example.robot.reponse.enums
 
 import org.springframework.http.HttpStatus
 
-enum class ErrorsEnum(val errorCode: String, val httpStatus: HttpStatus, val description: String) {
+enum class ResponseEnum(val errorCode: String, val httpStatus: HttpStatus, val description: String) {
 
+    SUCCESS("E0", HttpStatus.OK, "The request was performed successfully"),
     ROBOT_NOT_FOUND("E1", HttpStatus.NOT_FOUND, "Robot Not Found"),
 
     ROBOT_CANNOT_BE_LOADED("E2", HttpStatus.UNPROCESSABLE_ENTITY,
