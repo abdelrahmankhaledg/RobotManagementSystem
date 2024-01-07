@@ -22,6 +22,6 @@ class CarriedMedicationServiceRepositoryTest() {
     @Test
     fun getLoadedMedicationOfNotLoadedRobot(){
         val notLoadedRobotSerialNumber = "abc"
-        assert(carriedMedicationRepository.getLoadedMedication(notLoadedRobotSerialNumber) == null)
+        assert(carriedMedicationRepository.getLoadedMedication(notLoadedRobotSerialNumber) == emptyList<String>())
     }
 }
