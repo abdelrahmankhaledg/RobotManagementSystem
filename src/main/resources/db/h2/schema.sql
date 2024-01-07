@@ -8,3 +8,5 @@ alter table if exists robot add constraint robot_dynamic_state_fk foreign key (s
 --Medication
 create table medication (name varchar(255) not null, code varchar(255), image_url varchar(255), weight integer, primary key (name))
 
+--Battery Logs
+create table battery_log (timestamp timestamp(6) not null, json_log_entries json, primary key (timestamp))
