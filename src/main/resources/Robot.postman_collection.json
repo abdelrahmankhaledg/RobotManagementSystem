@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "b5f36f2d-9310-41af-b471-a3bfbcbb9ac7",
+		"name": "Robot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "28909406"
+	},
+	"item": [
+		{
+			"name": "Load Robot With Medication",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"serialNumber\" : \"ABC1\",\r\n    \"medicationNames\" : [\"PANADOL\", \"ADOL\", \"BRUFEN\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://www.localhost:8080/robot/load"
+			},
+			"response": []
+		},
+		{
+			"name": "Register Robot",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"serialNumber\" : \"ABC123456\",\r\n    \"robotModel\" : \"HEAVYWEIGHT\",\r\n    \"weightLimit\" : 400,\r\n    \"batteryCapacity\" : 80,\r\n    \"robotState\" : \"LOADING\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://www.localhost:8080/robot/register"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Available Robots To Load",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://www.localhost:8080/robot/available"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Loaded Medications For Robot",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://www.localhost:8080/robot/loaded/medications?serialNumber=ABC1",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"robot",
+						"loaded",
+						"medications"
+					],
+					"query": [
+						{
+							"key": "serialNumber",
+							"value": "ABC1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Robot Battery Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://www.localhost:8080/robot/battery?serialNumber=ABC1234",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"robot",
+						"battery"
+					],
+					"query": [
+						{
+							"key": "serialNumber",
+							"value": "ABC1234"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
