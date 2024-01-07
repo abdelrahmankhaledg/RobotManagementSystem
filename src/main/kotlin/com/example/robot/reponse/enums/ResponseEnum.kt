@@ -16,6 +16,9 @@ enum class ResponseEnum(val code: String, val httpStatus: HttpStatus, val descri
 
     METHOD_ARGUMENT_NOT_VALID("E4", HttpStatus.BAD_REQUEST,""),
 
-    INTERNAL_SERVER_ERROR("E5", HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error");
+    INTERNAL_SERVER_ERROR("E5", HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error"),
+
+    ROBOT_ALREADY_EXISTS("E6", HttpStatus.ALREADY_REPORTED, "The robot was registered before")
+
 
 }

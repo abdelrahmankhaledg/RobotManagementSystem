@@ -1,5 +1,6 @@
 package com.example.robot.exception.handler
 
+import com.example.robot.exception.RobotAlreadyExistsException
 import com.example.robot.exception.RobotCannotBeLoadedException
 import com.example.robot.exception.RobotNotFoundException
 import com.example.robot.exception.WeightLimitExceededException
@@ -38,6 +39,15 @@ class ExceptionHandler {
                 description = ResponseEnum.WEIGHT_LIMIT_EXCEEDED.description,
                 code = ResponseEnum.WEIGHT_LIMIT_EXCEEDED.code),
             ResponseEnum.WEIGHT_LIMIT_EXCEEDED.httpStatus)
+    }
+
+    @ExceptionHandler(RobotAlreadyExistsException::class)
+    fun handleRobotAlreadyExistsException(ex: RobotAlreadyExistsException): ResponseEntity<HttpResponse> {
+        return ResponseEntity(
+            HttpResponse(
+                description = ResponseEnum.ROBOT_ALREADY_EXISTS.description,
+                code = ResponseEnum.ROBOT_ALREADY_EXISTS.code),
+            ResponseEnum.ROBOT_ALREADY_EXISTS.httpStatus)
     }
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
