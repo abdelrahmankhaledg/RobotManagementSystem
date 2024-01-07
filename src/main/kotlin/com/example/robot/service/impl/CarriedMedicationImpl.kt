@@ -16,7 +16,7 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
-class CarriedMedicationHashmap(
+class CarriedMedicationImpl(
         private val robotRepository: RobotRepository,
         private val robotDynamicStateRepository: RobotDynamicStateRepository,
         private val medicationRepository: MedicationRepository,
