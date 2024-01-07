@@ -18,7 +18,7 @@ class ExceptionHandler {
         return ResponseEntity(
             HttpResponse(
                 description = ResponseEnum.ROBOT_NOT_FOUND.description,
-                code = ResponseEnum.ROBOT_NOT_FOUND.errorCode),
+                code = ResponseEnum.ROBOT_NOT_FOUND.code),
             ResponseEnum.ROBOT_NOT_FOUND.httpStatus)
     }
 
@@ -27,7 +27,7 @@ class ExceptionHandler {
         return ResponseEntity(
         HttpResponse(
             description = ResponseEnum.ROBOT_CANNOT_BE_LOADED.description,
-            code = ResponseEnum.ROBOT_CANNOT_BE_LOADED.errorCode),
+            code = ResponseEnum.ROBOT_CANNOT_BE_LOADED.code),
             ResponseEnum.ROBOT_CANNOT_BE_LOADED.httpStatus)
     }
 
@@ -36,7 +36,7 @@ class ExceptionHandler {
         return ResponseEntity(
             HttpResponse(
                 description = ResponseEnum.WEIGHT_LIMIT_EXCEEDED.description,
-                code = ResponseEnum.WEIGHT_LIMIT_EXCEEDED.errorCode),
+                code = ResponseEnum.WEIGHT_LIMIT_EXCEEDED.code),
             ResponseEnum.WEIGHT_LIMIT_EXCEEDED.httpStatus)
     }
 
@@ -49,7 +49,7 @@ class ExceptionHandler {
         return ResponseEntity(
             HttpResponse(
                 description = errorMessage,
-                code = ResponseEnum.METHOD_ARGUMENT_NOT_VALID.errorCode),
+                code = ResponseEnum.METHOD_ARGUMENT_NOT_VALID.code),
             ResponseEnum.METHOD_ARGUMENT_NOT_VALID.httpStatus)
     }
 
@@ -59,7 +59,7 @@ class ExceptionHandler {
         return ResponseEntity(
             HttpResponse(
                 description = ResponseEnum.INTERNAL_SERVER_ERROR.description,
-                code = ResponseEnum.INTERNAL_SERVER_ERROR.errorCode),
+                code = ResponseEnum.INTERNAL_SERVER_ERROR.code),
             ResponseEnum.INTERNAL_SERVER_ERROR.httpStatus)
     }
 }

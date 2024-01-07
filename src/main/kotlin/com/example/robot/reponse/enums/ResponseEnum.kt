@@ -2,7 +2,7 @@ package com.example.robot.reponse.enums
 
 import org.springframework.http.HttpStatus
 
-enum class ResponseEnum(val errorCode: String, val httpStatus: HttpStatus, val description: String) {
+enum class ResponseEnum(val code: String, val httpStatus: HttpStatus, val description: String) {
 
     SUCCESS("E0", HttpStatus.OK, "The request was performed successfully"),
     ROBOT_NOT_FOUND("E1", HttpStatus.NOT_FOUND, "Robot Not Found"),
