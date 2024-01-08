@@ -8,6 +8,7 @@ import com.example.robot.model.Robot
 import com.example.robot.model.RobotDynamicState
 import com.example.robot.model.enums.RobotModel
 import com.example.robot.model.enums.RobotState
+import com.example.robot.query.GetRobotLoadedMedicationsQuery
 import com.example.robot.repository.CarriedMedicationRepository
 import com.example.robot.repository.MedicationRepository
 import com.example.robot.repository.RobotDynamicStateRepository
@@ -38,6 +39,9 @@ class CarriedMedicationServiceTest() {
     private val loadRobotWithMedicationCommand : LoadRobotWithMedicationCommand = LoadRobotWithMedicationCommand(
         serialNumber = serialNumber,
         medicationNames = medicationNames
+    )
+    private val getRobotLoadedMedicationsQuery : GetRobotLoadedMedicationsQuery = GetRobotLoadedMedicationsQuery(
+        serialNumber = serialNumber
     )
     private val robot : Robot = Robot(
         serialNumber = serialNumber,
@@ -89,12 +93,12 @@ class CarriedMedicationServiceTest() {
     @Test
     fun getLoadedMedicationHappy(){
         every { carriedMedicationRepository.getLoadedMedication(serialNumber) } returns medicationNames
-        assert(carriedMedicationService.getLoadedMedication(serialNumber) == medicationNames)
+        assert(carriedMedicationService.getLoadedMedication(getRobotLoadedMedicationsQuery) == medicationNames)
     }
 
     @Test
     fun getLoadedMedicationForNotLoadedRobot(){
         every { carriedMedicationRepository.getLoadedMedication(serialNumber) } returns emptyList()
-        assert(carriedMedicationService.getLoadedMedication(serialNumber).isEmpty())
+        assert(carriedMedicationService.getLoadedMedication(getRobotLoadedMedicationsQuery).isEmpty())
     }
 }

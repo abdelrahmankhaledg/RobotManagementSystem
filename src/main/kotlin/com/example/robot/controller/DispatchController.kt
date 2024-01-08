@@ -72,7 +72,7 @@ class DispatchController(
         @NotNull @Valid getRobotLoadedMedicationsResource: GetRobotLoadedMedicationsResource
     ) : ResponseEntity<HttpResponseWithPayload>{
         val getRobotLoadedMedicationsQuery : GetRobotLoadedMedicationsQuery = GetRobotLoadedMedicationsQuery(getRobotLoadedMedicationsResource)
-        val loadedMedicationNames : List<String> = carriedMedicationService.getLoadedMedication(getRobotLoadedMedicationsQuery.serialNumber)
+        val loadedMedicationNames : List<String> = carriedMedicationService.getLoadedMedication(getRobotLoadedMedicationsQuery)
         return ResponseEntity(
             HttpResponseWithPayload(
                 HttpResponse(

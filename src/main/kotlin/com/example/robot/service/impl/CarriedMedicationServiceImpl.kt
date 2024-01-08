@@ -7,6 +7,7 @@ import com.example.robot.exception.WeightLimitExceededException
 import com.example.robot.model.Robot
 import com.example.robot.model.RobotDynamicState
 import com.example.robot.model.enums.RobotState
+import com.example.robot.query.GetRobotLoadedMedicationsQuery
 import com.example.robot.repository.CarriedMedicationRepository
 import com.example.robot.repository.MedicationRepository
 import com.example.robot.repository.RobotDynamicStateRepository
@@ -59,8 +60,8 @@ class CarriedMedicationServiceImpl(
         robotDynamicStateRepository.save(robot.robotDynamicState)
     }
 
-    override fun getLoadedMedication(serialNumber: String): List<String> {
-        return carriedMedicationRepository.getLoadedMedication(serialNumber)
+    override fun getLoadedMedication(getRobotLoadedMedicationsQuery: GetRobotLoadedMedicationsQuery): List<String> {
+        return carriedMedicationRepository.getLoadedMedication(getRobotLoadedMedicationsQuery.serialNumber)
     }
 
 }
