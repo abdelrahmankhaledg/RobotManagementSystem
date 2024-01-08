@@ -3,6 +3,7 @@ package com.example.robot.exception.handler
 import com.example.robot.exception.*
 import com.example.robot.reponse.enums.ResponseEnum
 import com.example.robot.reponse.HttpResponse
+import org.springframework.dao.OptimisticLockingFailureException
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
@@ -45,6 +46,16 @@ class ExceptionHandler {
                 description = ResponseEnum.ROBOT_ALREADY_EXISTS.description,
                 code = ResponseEnum.ROBOT_ALREADY_EXISTS.code),
             ResponseEnum.ROBOT_ALREADY_EXISTS.httpStatus)
+    }
+
+
+    @ExceptionHandler(OptimisticLockingFailureException::class)
+    fun handleOptimisticLockingFailureException(ex: OptimisticLockingFailureException): ResponseEntity<HttpResponse> {
+        return ResponseEntity(
+            HttpResponse(
+                description = ResponseEnum.OPTIMISTIC_LOCKING_EXCEPTION.description,
+                code = ResponseEnum.OPTIMISTIC_LOCKING_EXCEPTION.code),
+            ResponseEnum.OPTIMISTIC_LOCKING_EXCEPTION.httpStatus)
     }
 
     @ExceptionHandler(MedicationAlreadyExistsException::class)

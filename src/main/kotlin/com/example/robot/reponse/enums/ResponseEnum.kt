@@ -19,7 +19,8 @@ enum class ResponseEnum(val code: String, val httpStatus: HttpStatus, val descri
     INTERNAL_SERVER_ERROR("E5", HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error"),
 
     ROBOT_ALREADY_EXISTS("E6", HttpStatus.ALREADY_REPORTED, "The robot was registered before"),
-    MEDICATION_ALREADY_EXISTS("E7", HttpStatus.ALREADY_REPORTED, "The medication was registered before")
+    MEDICATION_ALREADY_EXISTS("E7", HttpStatus.ALREADY_REPORTED, "The medication was registered before"),
+    OPTIMISTIC_LOCKING_EXCEPTION("E8", HttpStatus.CONFLICT, "Operation failed. Please try again")
 
 
 }
