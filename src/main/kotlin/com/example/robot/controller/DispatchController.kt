@@ -1,17 +1,17 @@
 package com.example.robot.controller
 
-import com.example.robot.command.LoadRobotWithMedicationCommand
-import com.example.robot.command.RegisterRobotCommand
+import com.example.robot.command.robot.LoadRobotWithMedicationCommand
+import com.example.robot.command.robot.RegisterRobotCommand
 import com.example.robot.model.Robot
 import com.example.robot.query.CheckRobotBatteryLevelQuery
 import com.example.robot.query.GetRobotLoadedMedicationsQuery
 import com.example.robot.reponse.HttpResponse
 import com.example.robot.reponse.HttpResponseWithPayload
 import com.example.robot.reponse.enums.ResponseEnum
-import com.example.robot.resource.CheckRobotBatteryLevelResource
-import com.example.robot.resource.GetRobotLoadedMedicationsResource
-import com.example.robot.resource.LoadRobotWithMedicationResource
-import com.example.robot.resource.RegisterRobotResource
+import com.example.robot.resource.robot.CheckRobotBatteryLevelResource
+import com.example.robot.resource.robot.GetRobotLoadedMedicationsResource
+import com.example.robot.resource.robot.LoadRobotWithMedicationResource
+import com.example.robot.resource.robot.RegisterRobotResource
 import com.example.robot.service.CarriedMedicationService
 import com.example.robot.service.RobotService
 import jakarta.validation.Valid

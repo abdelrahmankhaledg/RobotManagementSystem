@@ -1,5 +1,5 @@
 package com.example.robot.query
-import com.example.robot.resource.GetRobotLoadedMedicationsResource
+import com.example.robot.resource.robot.GetRobotLoadedMedicationsResource
 
 class GetRobotLoadedMedicationsQuery(
     val serialNumber: String
