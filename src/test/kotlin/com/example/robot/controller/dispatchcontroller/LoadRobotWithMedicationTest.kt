@@ -1,7 +1,7 @@
 package com.example.robot.controller.dispatchcontroller
 
 import com.example.robot.reponse.enums.ResponseEnum
-import com.example.robot.resource.LoadRobotWithMedicationResource
+import com.example.robot.resource.robot.LoadRobotWithMedicationResource
 import com.example.robot.service.CarriedMedicationService
 import com.example.robot.service.RobotService
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
@@ -36,9 +36,11 @@ class LoadRobotWithMedicationTest (@Autowired val mockMvc : MockMvc){
         every { carriedMedicationService.loadRobotWithMedication(serialNumber, medicationNames) } returns Unit
         mockMvc.perform(
             MockMvcRequestBuilders.post("/robot/load")
-                .content(mapper.writeValueAsString(LoadRobotWithMedicationResource(
+                .content(mapper.writeValueAsString(
+                    LoadRobotWithMedicationResource(
                     serialNumber = serialNumber,
-                    medicationNames = medicationNames)))
+                    medicationNames = medicationNames)
+                ))
                 .contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().isEqualTo(ResponseEnum.SUCCESS.httpStatus.value()))
             .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))

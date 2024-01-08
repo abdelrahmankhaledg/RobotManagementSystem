@@ -1,18 +1,17 @@
-package com.example.robot.resource
+package com.example.robot.resource.robot
 
-import com.example.robot.validator.SerialNumber
+import com.example.robot.validator.robot.SerialNumber
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotEmpty
-import jakarta.validation.constraints.NotNull
 import org.springframework.validation.annotation.Validated
 
 @Validated
 data class LoadRobotWithMedicationResource (
-    @field:SerialNumber
+    @SerialNumber
     val serialNumber : String?,
 
-    @field:NotEmpty(message = "The list of medications to be loaded cannot be empty")
-    @field:Valid
+    @NotEmpty(message = "The list of medications to be loaded cannot be empty")
+    @Valid
     val medicationNames : List<@NotBlank(message = "Medication names cannot be empty") String>?
 ){}
