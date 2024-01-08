@@ -1,4 +1,4 @@
-package com.example.robot.service
+package com.example.robot.service.carriedmedicationservice
 
 import com.example.robot.exception.RobotCannotBeLoadedException
 import com.example.robot.exception.RobotNotFoundException
@@ -11,6 +11,7 @@ import com.example.robot.repository.CarriedMedicationRepository
 import com.example.robot.repository.MedicationRepository
 import com.example.robot.repository.RobotDynamicStateRepository
 import com.example.robot.repository.RobotRepository
+import com.example.robot.service.CarriedMedicationService
 import com.example.robot.service.impl.CarriedMedicationServiceImpl
 import io.mockk.every
 import io.mockk.mockk
