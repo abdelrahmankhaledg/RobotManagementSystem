@@ -1,8 +1,8 @@
-package com.example.robot.command.robot
+package com.example.robot.command
 
 import com.example.robot.model.enums.RobotModel
 import com.example.robot.model.enums.RobotState
-import com.example.robot.resource.robot.RegisterRobotResource
+import com.example.robot.resource.RegisterRobotResource
 
 
 class RegisterRobotCommand (

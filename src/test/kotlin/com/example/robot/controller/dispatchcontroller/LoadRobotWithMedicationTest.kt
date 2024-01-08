@@ -1,7 +1,7 @@
 package com.example.robot.controller.dispatchcontroller
 
 import com.example.robot.reponse.enums.ResponseEnum
-import com.example.robot.resource.robot.LoadRobotWithMedicationResource
+import com.example.robot.resource.LoadRobotWithMedicationResource
 import com.example.robot.service.CarriedMedicationService
 import com.example.robot.service.RobotService
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
@@ -91,7 +91,7 @@ class LoadRobotWithMedicationTest (@Autowired val mockMvc : MockMvc){
     }
 
     //TODO Make this test case work
-    /*@Test
+    @Test
     fun someMedicationNamesAreBlank(){
         mockMvc.perform(
             MockMvcRequestBuilders.post("/robot/load")
@@ -100,6 +100,6 @@ class LoadRobotWithMedicationTest (@Autowired val mockMvc : MockMvc){
             .andExpect(MockMvcResultMatchers.status().isEqualTo(ResponseEnum.METHOD_ARGUMENT_NOT_VALID.httpStatus.value()))
             .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(ResponseEnum.METHOD_ARGUMENT_NOT_VALID.code))
-    }*/
+    }
 
 }

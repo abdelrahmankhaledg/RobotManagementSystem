@@ -1,4 +1,4 @@
-package com.example.robot.validator
+package com.example.robot.validator.robot
 
 import jakarta.validation.constraints.Digits
 import jakarta.validation.constraints.Max

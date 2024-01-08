@@ -1,10 +1,10 @@
-package com.example.robot.resource.robot
+package com.example.robot.resource
 
 import com.example.robot.validator.robot.SerialNumber
 import org.springframework.validation.annotation.Validated
 
 @Validated
-data class CheckRobotBatteryLevelResource(
+data class GetRobotLoadedMedicationsResource(
     @SerialNumber
     val serialNumber: String?
 ) {}

@@ -1,6 +1,6 @@
 package com.example.robot.query
 
-import com.example.robot.resource.robot.CheckRobotBatteryLevelResource
+import com.example.robot.resource.CheckRobotBatteryLevelResource
 
 class CheckRobotBatteryLevelQuery(
     val serialNumber: String

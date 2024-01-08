@@ -1,6 +1,6 @@
-package com.example.robot.command.robot
+package com.example.robot.command
 
-import com.example.robot.resource.robot.LoadRobotWithMedicationResource
+import com.example.robot.resource.LoadRobotWithMedicationResource
 
 data class LoadRobotWithMedicationCommand(
     val serialNumber: String,

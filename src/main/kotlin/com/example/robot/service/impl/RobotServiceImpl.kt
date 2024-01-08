@@ -1,6 +1,6 @@
 package com.example.robot.service.impl
 
-import com.example.robot.command.robot.RegisterRobotCommand
+import com.example.robot.command.RegisterRobotCommand
 import com.example.robot.exception.RobotAlreadyExistsException
 import com.example.robot.exception.RobotNotFoundException
 import com.example.robot.model.Robot

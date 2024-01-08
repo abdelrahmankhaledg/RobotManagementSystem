@@ -1,4 +1,4 @@
-package com.example.robot.resource.robot
+package com.example.robot.resource
 
 import com.example.robot.validator.robot.*
 import org.springframework.validation.annotation.Validated
