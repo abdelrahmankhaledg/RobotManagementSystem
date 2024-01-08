@@ -1,9 +1,6 @@
 package com.example.robot.exception.handler
 
-import com.example.robot.exception.RobotAlreadyExistsException
-import com.example.robot.exception.RobotCannotBeLoadedException
-import com.example.robot.exception.RobotNotFoundException
-import com.example.robot.exception.WeightLimitExceededException
+import com.example.robot.exception.*
 import com.example.robot.reponse.enums.ResponseEnum
 import com.example.robot.reponse.HttpResponse
 import org.springframework.http.ResponseEntity
@@ -48,6 +45,15 @@ class ExceptionHandler {
                 description = ResponseEnum.ROBOT_ALREADY_EXISTS.description,
                 code = ResponseEnum.ROBOT_ALREADY_EXISTS.code),
             ResponseEnum.ROBOT_ALREADY_EXISTS.httpStatus)
+    }
+
+    @ExceptionHandler(MedicationAlreadyExistsException::class)
+    fun handleMedicationAlreadyExistsException(ex: MedicationAlreadyExistsException): ResponseEntity<HttpResponse> {
+        return ResponseEntity(
+            HttpResponse(
+                description = ResponseEnum.MEDICATION_ALREADY_EXISTS.description,
+                code = ResponseEnum.MEDICATION_ALREADY_EXISTS.code),
+            ResponseEnum.MEDICATION_ALREADY_EXISTS.httpStatus)
     }
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
