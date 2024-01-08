@@ -57,9 +57,7 @@ class DispatchController(
     ) : ResponseEntity<HttpResponse>
     {
         val loadRobotWithMedicationCommand : LoadRobotWithMedicationCommand = LoadRobotWithMedicationCommand(loadRobotWithMedicationResource)
-        carriedMedicationService.loadRobotWithMedication(
-            loadRobotWithMedicationCommand.serialNumber,
-            loadRobotWithMedicationCommand.medicationNames);
+        carriedMedicationService.loadRobotWithMedication(loadRobotWithMedicationCommand);
         return ResponseEntity(
             HttpResponse(
                 description = ResponseEnum.SUCCESS.description,

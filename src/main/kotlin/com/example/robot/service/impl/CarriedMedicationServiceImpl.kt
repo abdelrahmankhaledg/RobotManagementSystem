@@ -1,5 +1,6 @@
 package com.example.robot.service.impl
 
+import com.example.robot.command.LoadRobotWithMedicationCommand
 import com.example.robot.exception.RobotCannotBeLoadedException
 import com.example.robot.exception.RobotNotFoundException
 import com.example.robot.exception.WeightLimitExceededException
@@ -24,7 +25,9 @@ class CarriedMedicationServiceImpl(
     ) : CarriedMedicationService
 {
     @Transactional
-    override fun loadRobotWithMedication(serialNumber: String, medicationNames: List<String>): Unit {
+    override fun loadRobotWithMedication(loadRobotWithMedicationCommand: LoadRobotWithMedicationCommand): Unit {
+        val serialNumber : String = loadRobotWithMedicationCommand.serialNumber
+        val medicationNames : List<String> = loadRobotWithMedicationCommand.medicationNames
         val robot : Robot = robotRepository.findByIdOrNull(serialNumber) ?: throw RobotNotFoundException()
         canLoadMedications(robot, medicationNames)
         loadRobot(robot, medicationNames)

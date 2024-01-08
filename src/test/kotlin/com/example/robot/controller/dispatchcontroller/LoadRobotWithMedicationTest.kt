@@ -1,5 +1,6 @@
 package com.example.robot.controller.dispatchcontroller
 
+import com.example.robot.command.LoadRobotWithMedicationCommand
 import com.example.robot.controller.DispatchController
 import com.example.robot.reponse.enums.ResponseEnum
 import com.example.robot.resource.LoadRobotWithMedicationResource
@@ -34,7 +35,11 @@ class LoadRobotWithMedicationTest (@Autowired val mockMvc : MockMvc){
 
     @Test
     fun loadRobotWithMedicationHappy(){
-        every { carriedMedicationService.loadRobotWithMedication(serialNumber, medicationNames) } returns Unit
+        val loadRobotWithMedicationCommand : LoadRobotWithMedicationCommand = LoadRobotWithMedicationCommand(
+            serialNumber = serialNumber,
+            medicationNames = medicationNames
+        )
+        every { carriedMedicationService.loadRobotWithMedication(loadRobotWithMedicationCommand) } returns Unit
         mockMvc.perform(
             MockMvcRequestBuilders.post("/robot/load")
                 .content(mapper.writeValueAsString(

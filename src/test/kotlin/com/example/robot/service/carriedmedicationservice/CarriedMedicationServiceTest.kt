@@ -1,5 +1,6 @@
 package com.example.robot.service.carriedmedicationservice
 
+import com.example.robot.command.LoadRobotWithMedicationCommand
 import com.example.robot.exception.RobotCannotBeLoadedException
 import com.example.robot.exception.RobotNotFoundException
 import com.example.robot.exception.WeightLimitExceededException
@@ -33,6 +34,11 @@ class CarriedMedicationServiceTest() {
     )
 
     private val serialNumber = "ABC123"
+    private val medicationNames : List<String> = arrayListOf("PANADOL", "ADOL", "BRUFEN")
+    private val loadRobotWithMedicationCommand : LoadRobotWithMedicationCommand = LoadRobotWithMedicationCommand(
+        serialNumber = serialNumber,
+        medicationNames = medicationNames
+    )
     private val robot : Robot = Robot(
         serialNumber = serialNumber,
         robotModel = RobotModel.LIGHTWEIGHT,
@@ -43,7 +49,7 @@ class CarriedMedicationServiceTest() {
             robotState = RobotState.IDLE
         )
     )
-    private val medicationNames : List<String> = arrayListOf("PANADOL", "ADOL", "BRUFEN")
+
 
     @Test
     fun loadRobotWithMedicationHappy(){
@@ -51,33 +57,33 @@ class CarriedMedicationServiceTest() {
         every { medicationRepository.findMedicationsWeight(medicationNames)} returns robot.weightLimit - 1
         every { robotDynamicStateRepository.save(any())} returns robot.robotDynamicState
         every { carriedMedicationRepository.storeLoadedMedication(serialNumber, medicationNames) } returns Unit
-        assertDoesNotThrow { carriedMedicationService.loadRobotWithMedication(serialNumber, medicationNames) }
+        assertDoesNotThrow { carriedMedicationService.loadRobotWithMedication(loadRobotWithMedicationCommand) }
     }
     @Test
     fun loadNonExistentRobotWithMedication(){
         every { robotRepository.findByIdOrNull(serialNumber) } returns null
-        assertThrows<RobotNotFoundException> { carriedMedicationService.loadRobotWithMedication(serialNumber, medicationNames) }
+        assertThrows<RobotNotFoundException> { carriedMedicationService.loadRobotWithMedication(loadRobotWithMedicationCommand) }
     }
 
     @Test
     fun loadNotIdleRobotWithMedication(){
         robot.robotDynamicState.robotState = RobotState.LOADING
         every { robotRepository.findByIdOrNull(serialNumber) } returns robot
-        assertThrows<RobotCannotBeLoadedException> { carriedMedicationService.loadRobotWithMedication(serialNumber, medicationNames) }
+        assertThrows<RobotCannotBeLoadedException> { carriedMedicationService.loadRobotWithMedication(loadRobotWithMedicationCommand) }
     }
 
     @Test
     fun loadLowBatteryRobotWithMedication(){
         robot.robotDynamicState.batteryCapacity = 25
         every { robotRepository.findByIdOrNull(serialNumber) } returns robot
-        assertThrows<RobotCannotBeLoadedException> { carriedMedicationService.loadRobotWithMedication(serialNumber, medicationNames) }
+        assertThrows<RobotCannotBeLoadedException> { carriedMedicationService.loadRobotWithMedication(loadRobotWithMedicationCommand) }
     }
 
     @Test
     fun overloadRobot() {
         every { robotRepository.findByIdOrNull(serialNumber) } returns robot
         every { medicationRepository.findMedicationsWeight(medicationNames)} returns robot.weightLimit + 1
-        assertThrows<WeightLimitExceededException> { carriedMedicationService.loadRobotWithMedication(serialNumber, medicationNames)}
+        assertThrows<WeightLimitExceededException> { carriedMedicationService.loadRobotWithMedication(loadRobotWithMedicationCommand)}
     }
 
     @Test
