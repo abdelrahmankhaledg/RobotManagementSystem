@@ -64,4 +64,7 @@ class CarriedMedicationServiceImpl(
         return carriedMedicationRepository.getLoadedMedication(getRobotLoadedMedicationsQuery.serialNumber)
     }
 
+    override fun unloadRobot(serialNumber: String) {
+        carriedMedicationRepository.unloadRobot(serialNumber)
+    }
 }

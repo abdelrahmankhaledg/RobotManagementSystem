@@ -16,4 +16,8 @@ class CarriedMedicationHashmapRepository(
     override fun getLoadedMedication(serialNumber: String): List<String> {
         return carriedMedication[serialNumber] ?: emptyList()
     }
+
+    override fun unloadRobot(serialNumber: String) {
+        carriedMedication.remove(serialNumber)
+    }
 }

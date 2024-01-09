@@ -7,4 +7,5 @@ import com.example.robot.query.GetRobotLoadedMedicationsQuery
 interface CarriedMedicationService {
     fun loadRobotWithMedication(loadRobotWithMedicationCommand: LoadRobotWithMedicationCommand)
     fun getLoadedMedication(getRobotLoadedMedicationsQuery: GetRobotLoadedMedicationsQuery) : List<String>
+    fun unloadRobot(serialNumber : String)
 }
