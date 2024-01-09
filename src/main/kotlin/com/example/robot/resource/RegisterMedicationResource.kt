@@ -18,7 +18,7 @@ data class RegisterMedicationResource (
     @MedicationCode
     val code : String?,
 
-    @URL
+    @field:URL
     val imageUrl : String?
 
 ){
