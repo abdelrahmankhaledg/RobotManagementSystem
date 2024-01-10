@@ -3,9 +3,11 @@ package com.example.robot.model
 import com.example.robot.model.enums.RobotModel
 import com.example.robot.model.enums.converters.RobotModelConverter
 import jakarta.persistence.*
+import org.hibernate.annotations.DynamicUpdate
 
 @Entity
 @Table(name = "ROBOT")
+@DynamicUpdate(value = true)
 data class Robot(
     @Id
     @Column(name = "SERIAL_NUMBER")

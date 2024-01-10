@@ -2,16 +2,14 @@ package com.example.robot.controller
 
 import com.example.robot.command.LoadRobotWithMedicationCommand
 import com.example.robot.command.RegisterRobotCommand
+import com.example.robot.command.UnloadRobotCommand
 import com.example.robot.model.Robot
 import com.example.robot.query.CheckRobotBatteryLevelQuery
 import com.example.robot.query.GetRobotLoadedMedicationsQuery
 import com.example.robot.reponse.HttpResponse
 import com.example.robot.reponse.HttpResponseWithPayload
 import com.example.robot.reponse.enums.ResponseEnum
-import com.example.robot.resource.CheckRobotBatteryLevelResource
-import com.example.robot.resource.GetRobotLoadedMedicationsResource
-import com.example.robot.resource.LoadRobotWithMedicationResource
-import com.example.robot.resource.RegisterRobotResource
+import com.example.robot.resource.*
 import com.example.robot.service.CarriedMedicationService
 import com.example.robot.service.RobotService
 import io.swagger.v3.oas.annotations.Operation
@@ -147,8 +145,15 @@ class DispatchController(
         ApiResponse(responseCode = "200", description = "The robot has been unloaded successfully",
             content = [ Content(mediaType = "application/json",
                 schema = Schema(implementation = ResponseEntity::class)) ])])
-    fun unloadRobot(@RequestParam serialNumber : String) : ResponseEntity<String>{
-        carriedMedicationService.unloadRobot(serialNumber)
-        return ResponseEntity.ok("Robot $serialNumber was unloaded")
+    fun unloadRobot(@NotNull @Valid @RequestBody unloadRobotResource: UnloadRobotResource) : ResponseEntity<HttpResponse>{
+        val unloadRobotCommand : UnloadRobotCommand = UnloadRobotCommand(unloadRobotResource)
+        carriedMedicationService.unloadRobot(unloadRobotCommand)
+        return ResponseEntity(
+                HttpResponse(
+                    description = ResponseEnum.SUCCESS.description,
+                    code = ResponseEnum.SUCCESS.code
+                ),
+            ResponseEnum.SUCCESS.httpStatus
+        )
     }
 }

@@ -1,6 +1,7 @@
 package com.example.robot.service.impl
 
 import com.example.robot.command.LoadRobotWithMedicationCommand
+import com.example.robot.command.UnloadRobotCommand
 import com.example.robot.exception.MedicationNameNotMatchingRulesException
 import com.example.robot.exception.RobotCannotBeLoadedException
 import com.example.robot.exception.RobotNotFoundException
@@ -73,8 +74,8 @@ class CarriedMedicationServiceImpl(
         return carriedMedicationRepository.getLoadedMedication(getRobotLoadedMedicationsQuery.serialNumber)
     }
 
-    override fun unloadRobot(serialNumber: String) {
-        carriedMedicationRepository.unloadRobot(serialNumber)
-        changeRobotState(robotRepository.findById(serialNumber).get(), RobotState.IDLE)
+    override fun unloadRobot(unloadRobotCommand: UnloadRobotCommand) {
+        carriedMedicationRepository.unloadRobot(unloadRobotCommand.serialNumber)
+        changeRobotState(robotRepository.findById(unloadRobotCommand.serialNumber).get(), RobotState.IDLE)
     }
 }
