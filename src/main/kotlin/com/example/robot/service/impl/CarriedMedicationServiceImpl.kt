@@ -75,5 +75,6 @@ class CarriedMedicationServiceImpl(
 
     override fun unloadRobot(serialNumber: String) {
         carriedMedicationRepository.unloadRobot(serialNumber)
+        changeRobotState(robotRepository.findById(serialNumber).get(), RobotState.IDLE)
     }
 }
