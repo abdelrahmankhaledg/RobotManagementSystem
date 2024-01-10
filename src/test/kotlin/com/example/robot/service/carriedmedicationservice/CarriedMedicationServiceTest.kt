@@ -1,6 +1,7 @@
 package com.example.robot.service.carriedmedicationservice
 
 import com.example.robot.command.LoadRobotWithMedicationCommand
+import com.example.robot.exception.MedicationNameNotMatchingRulesException
 import com.example.robot.exception.RobotCannotBeLoadedException
 import com.example.robot.exception.RobotNotFoundException
 import com.example.robot.exception.WeightLimitExceededException
@@ -91,6 +92,15 @@ class CarriedMedicationServiceTest() {
     }
 
     @Test
+    fun someMedicationNamesAreBlank(){
+        val loadRobotWithMedicationCommand : LoadRobotWithMedicationCommand = LoadRobotWithMedicationCommand(
+            serialNumber = serialNumber,
+            medicationNames = listOf("  ", "ADOL")
+        )
+        assertThrows<MedicationNameNotMatchingRulesException> { carriedMedicationService.loadRobotWithMedication(loadRobotWithMedicationCommand) }
+    }
+
+    @Test
     fun getLoadedMedicationHappy(){
         every { carriedMedicationRepository.getLoadedMedication(serialNumber) } returns medicationNames
         assert(carriedMedicationService.getLoadedMedication(getRobotLoadedMedicationsQuery) == medicationNames)
@@ -101,4 +111,5 @@ class CarriedMedicationServiceTest() {
         every { carriedMedicationRepository.getLoadedMedication(serialNumber) } returns emptyList()
         assert(carriedMedicationService.getLoadedMedication(getRobotLoadedMedicationsQuery).isEmpty())
     }
+
 }

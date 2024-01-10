@@ -2,10 +2,10 @@ package com.example.robot.model.enums
 
 enum class RobotModel(val code : String) {
 
-    LIGHTWEIGHT("LIGHT_WEIGHT"),
-    MIDDLEWEIGHT("MIDDLE_WEIGHT"),
-    CRUISERWEIGHT("CRUISER_WEIGHT"),
-    HEAVYWEIGHT("HEAVY_WEIGHT");
+    LIGHTWEIGHT("LIGHTWEIGHT"),
+    MIDDLEWEIGHT("MIDDLEWEIGHT"),
+    CRUISERWEIGHT("CRUISERWEIGHT"),
+    HEAVYWEIGHT("HEAVYWEIGHT");
 
     override fun toString(): String {
         return code

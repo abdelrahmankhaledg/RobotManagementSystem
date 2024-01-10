@@ -96,16 +96,4 @@ class LoadRobotWithMedicationTest (@Autowired val mockMvc : MockMvc){
             .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(ResponseEnum.METHOD_ARGUMENT_NOT_VALID.code))
     }
 
-    //TODO Make this test case work
-    /*@Test
-    fun someMedicationNamesAreBlank(){
-        mockMvc.perform(
-            MockMvcRequestBuilders.post("/robot/load")
-                .content(mapper.writeValueAsString(LoadRobotWithMedicationResource("ABC", listOf("","ABC"))))
-                .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(MockMvcResultMatchers.status().isEqualTo(ResponseEnum.METHOD_ARGUMENT_NOT_VALID.httpStatus.value()))
-            .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(ResponseEnum.METHOD_ARGUMENT_NOT_VALID.code))
-    }*/
-
 }

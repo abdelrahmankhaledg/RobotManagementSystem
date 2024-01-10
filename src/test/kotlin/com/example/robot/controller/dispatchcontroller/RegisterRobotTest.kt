@@ -1,11 +1,15 @@
 package com.example.robot.controller.dispatchcontroller
 
-import com.example.robot.command.RegisterMedicationCommand
-import com.example.robot.controller.MedicationController
-import com.example.robot.model.Medication
+
+
+import com.example.robot.command.RegisterRobotCommand
+import com.example.robot.controller.DispatchController
+import com.example.robot.model.Robot
+import com.example.robot.model.RobotDynamicState
 import com.example.robot.reponse.enums.ResponseEnum
-import com.example.robot.resource.RegisterMedicationResource
-import com.example.robot.service.MedicationService
+import com.example.robot.resource.RegisterRobotResource
+import com.example.robot.service.CarriedMedicationService
+import com.example.robot.service.RobotService
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
@@ -18,47 +22,60 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.isEqualTo
 
-@WebMvcTest(controllers = [MedicationController::class])
+@WebMvcTest(controllers = [DispatchController::class])
 class RegisterRobotTest (@Autowired val mockMvc : MockMvc) {
 
     @MockkBean
-    lateinit var medicationService: MedicationService
+    lateinit var carriedMedicationService: CarriedMedicationService
+
+    @MockkBean
+    lateinit var robotService: RobotService
+
 
     private val mapper = jacksonObjectMapper()
 
 
-    private fun createMedication(registerMedicationCommand: RegisterMedicationCommand): Medication {
-        return Medication(
-            name = registerMedicationCommand.name,
-            weight = registerMedicationCommand.weight,
-            code = registerMedicationCommand.code,
-            imageUrl = registerMedicationCommand.imageUrl
+    private fun createRobot(registerRobotCommand: RegisterRobotCommand): Robot {
+        return Robot(
+            serialNumber = registerRobotCommand.serialNumber,
+            robotModel = registerRobotCommand.robotModel,
+            weightLimit = registerRobotCommand.weightLimit,
+            robotDynamicState = RobotDynamicState(
+                serialNumber = registerRobotCommand.serialNumber,
+                batteryCapacity = registerRobotCommand.batteryCapacity,
+                robotState = registerRobotCommand.robotState
+            )
         )
     }
 
     @Test
-    fun registerMedicationHappy() {
-        val registerMedicationResource : RegisterMedicationResource = RegisterMedicationResource(
-            name = "PANADOL",
-            weight = 100,
-            code = "ABC123",
-            imageUrl = "https://www.google.com"
+    fun registerRobotHappy() {
+        val registerRobotResource: RegisterRobotResource = RegisterRobotResource(
+            serialNumber = "ABC123",
+            robotModel = "LIGHTWEIGHT",
+            weightLimit = 400,
+            batteryCapacity = 70,
+            robotState = "IDLE"
         )
-        val registerMedicationCommand : RegisterMedicationCommand = RegisterMedicationCommand(registerMedicationResource)
-        val medication : Medication = createMedication(registerMedicationCommand)
-        every { medicationService.registerMedication(registerMedicationCommand) } returns medication
+        val registerRobotCommand: RegisterRobotCommand = RegisterRobotCommand(registerRobotResource)
+        val robot: Robot = createRobot(registerRobotCommand)
+        every { robotService.registerRobot(any()) } returns robot
         mockMvc.perform(
-            MockMvcRequestBuilders.post("/medication/register")
-                .content(mapper.writeValueAsString(registerMedicationResource))
+            MockMvcRequestBuilders.post("/robot/register")
+                .content(mapper.writeValueAsString(registerRobotResource))
                 .contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().isEqualTo(ResponseEnum.SUCCESS.httpStatus.value()))
             .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.jsonPath("$.httpResponse.description").value(ResponseEnum.SUCCESS.description))
             .andExpect(MockMvcResultMatchers.jsonPath("$.httpResponse.code").value(ResponseEnum.SUCCESS.code))
-            .andExpect(MockMvcResultMatchers.jsonPath("$.payLoad.name").value(medication.name))
-            .andExpect(MockMvcResultMatchers.jsonPath("$.payLoad.weight").value(medication.weight))
-            .andExpect(MockMvcResultMatchers.jsonPath("$.payLoad.code").value(medication.code))
-            .andExpect(MockMvcResultMatchers.jsonPath("$.payLoad.imageUrl").value(medication.imageUrl))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.payLoad.serialNumber").value(robot.serialNumber))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.payLoad.robotModel").value(robot.robotModel.name))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.payLoad.weightLimit").value(robot.weightLimit))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.payLoad.robotDynamicState.batteryCapacity")
+                .value(robot.robotDynamicState.batteryCapacity))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.payLoad.robotDynamicState.robotState")
+                .value(robot.robotDynamicState.robotState.name))
+
     }
 
 }

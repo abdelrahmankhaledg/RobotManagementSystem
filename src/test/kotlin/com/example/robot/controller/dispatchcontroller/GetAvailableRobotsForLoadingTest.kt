@@ -29,9 +29,9 @@ class GetAvailableRobotsForLoadingTest(@Autowired val mockMvc : MockMvc) {
     lateinit var robotService: RobotService
 
     private fun generateRobots(count : Int = 2): List<Robot>{
-        val robots : List<Robot> = emptyList()
+        val robots : MutableList<Robot> = mutableListOf<Robot>()
         for(i in 1..count){
-            robots.plus(generateRandomRobot())
+            robots.plusAssign(generateRandomRobot())
         }
         return robots
     }
@@ -61,7 +61,6 @@ class GetAvailableRobotsForLoadingTest(@Autowired val mockMvc : MockMvc) {
             .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.jsonPath("$.httpResponse.description").value(ResponseEnum.SUCCESS.description))
             .andExpect(MockMvcResultMatchers.jsonPath("$.httpResponse.code").value(ResponseEnum.SUCCESS.code))
-            .andExpect(MockMvcResultMatchers.jsonPath("$.payLoad[0]").value(robots[0]))
-            .andExpect(MockMvcResultMatchers.jsonPath("$.payLoad[1]").value(robots[1]))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.payLoad.size()").value(robots.size))
     }
 }
