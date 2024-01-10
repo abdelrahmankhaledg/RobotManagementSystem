@@ -5,6 +5,7 @@ import com.example.robot.reponse.HttpResponse
 import com.example.robot.reponse.enums.ResponseEnum
 import org.springframework.dao.OptimisticLockingFailureException
 import org.springframework.http.ResponseEntity
+import org.springframework.web.HttpRequestMethodNotSupportedException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -74,6 +75,17 @@ class ExceptionHandler {
                 description = ResponseEnum.MEDICATION_NAME_NOT_MATCHING_RULES.description,
                 code = ResponseEnum.MEDICATION_NAME_NOT_MATCHING_RULES.code),
             ResponseEnum.MEDICATION_NAME_NOT_MATCHING_RULES.httpStatus)
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException::class)
+    fun handleHttpRequestMethodNotSupportedException(ex: HttpRequestMethodNotSupportedException): ResponseEntity<HttpResponse> {
+        val description : String = "HTTP ${ex.method} Request is not supported for your request. " +
+                "Instead you can use ${ex.supportedHttpMethods}"
+        return ResponseEntity(
+            HttpResponse(
+                description = description,
+                code = ResponseEnum.REQUEST_METHOD_NOT_SUPPORTED.code),
+            ResponseEnum.REQUEST_METHOD_NOT_SUPPORTED.httpStatus)
     }
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
