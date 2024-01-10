@@ -6,6 +6,7 @@ import com.example.robot.exception.MedicationNameNotMatchingRulesException
 import com.example.robot.exception.RobotCannotBeLoadedException
 import com.example.robot.exception.RobotNotFoundException
 import com.example.robot.exception.WeightLimitExceededException
+import com.example.robot.model.Medication
 import com.example.robot.model.Robot
 import com.example.robot.model.RobotDynamicState
 import com.example.robot.model.enums.RobotState
@@ -54,9 +55,23 @@ class CarriedMedicationServiceImpl(
             RobotState.IDLE != robotDynamicState.robotState)
                 throw RobotCannotBeLoadedException()
 
-        val medicationsWeight : Int = medicationRepository.findMedicationsWeight(medicationNames)
+        val medications : MutableIterable<Medication> = medicationRepository.findAllById(medicationNames)
+        val medicationsWeight : Int = getMedicationsWeight(medicationNames, medications)
         if(medicationsWeight > robot.weightLimit)
             throw  WeightLimitExceededException()
+    }
+    fun getMedicationsWeight(medicationNames : List<String>, medications : MutableIterable<Medication>) : Int{
+        var medicationsWeight : Int = 0
+        val uniqueMedicationNames : HashSet<String> = HashSet()
+        for(name in medicationNames){
+            uniqueMedicationNames.add(name)
+        }
+        for(medication in medications){
+            if(uniqueMedicationNames.contains(medication.name)){
+                medicationsWeight += medication.weight
+            }
+        }
+        return medicationsWeight
     }
 
     private fun loadRobot(robot: Robot, medicationNames: List<String>){

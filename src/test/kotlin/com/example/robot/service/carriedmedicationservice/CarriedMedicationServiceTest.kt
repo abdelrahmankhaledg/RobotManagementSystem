@@ -6,6 +6,7 @@ import com.example.robot.exception.MedicationNameNotMatchingRulesException
 import com.example.robot.exception.RobotCannotBeLoadedException
 import com.example.robot.exception.RobotNotFoundException
 import com.example.robot.exception.WeightLimitExceededException
+import com.example.robot.model.Medication
 import com.example.robot.model.Robot
 import com.example.robot.model.RobotDynamicState
 import com.example.robot.model.enums.RobotModel
@@ -56,11 +57,18 @@ class CarriedMedicationServiceTest() {
         )
     )
 
+    private val medication : Medication = Medication(
+        name = "PANADOL",
+        weight = 300,
+        code =  "ABC123",
+        imageUrl = "KKK@google.com",
+    )
 
     @Test
     fun loadRobotWithMedicationHappy(){
+
         every { robotRepository.findByIdOrNull(serialNumber) } returns robot
-        every { medicationRepository.findMedicationsWeight(medicationNames)} returns robot.weightLimit - 1
+        every { medicationRepository.findAllById(any())} returns mutableListOf(medication)
         every { robotDynamicStateRepository.save(any())} returns robot.robotDynamicState
         every { carriedMedicationRepository.storeLoadedMedication(serialNumber, medicationNames) } returns Unit
         assertDoesNotThrow { carriedMedicationService.loadRobotWithMedication(loadRobotWithMedicationCommand) }
@@ -88,7 +96,7 @@ class CarriedMedicationServiceTest() {
     @Test
     fun overloadRobot() {
         every { robotRepository.findByIdOrNull(serialNumber) } returns robot
-        every { medicationRepository.findMedicationsWeight(medicationNames)} returns robot.weightLimit + 1
+        every { medicationRepository.findAllById(any())} returns mutableListOf(medication, medication)
         assertThrows<WeightLimitExceededException> { carriedMedicationService.loadRobotWithMedication(loadRobotWithMedicationCommand)}
     }
 
