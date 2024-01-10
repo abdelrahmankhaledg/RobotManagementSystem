@@ -92,8 +92,9 @@ class ExceptionHandler {
     fun handleMethodArgumentNotValidException(ex : MethodArgumentNotValidException) : ResponseEntity<HttpResponse>{
         var errorMessage = ""
         for (fieldError in ex.fieldErrors) {
-            errorMessage += "${fieldError.defaultMessage}\n"
+            errorMessage += "${fieldError.defaultMessage}, "
         }
+        errorMessage = errorMessage.substring(0, errorMessage.length - 2)
         return ResponseEntity(
             HttpResponse(
                 description = errorMessage,

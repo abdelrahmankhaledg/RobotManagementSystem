@@ -7,11 +7,7 @@ import jakarta.validation.constraints.Pattern
 import kotlin.reflect.KClass
 @NotBlank(message = "The medication name cannot be empty")
 @Pattern(regexp = "^[a-zA-Z0-9_-]+\$", message = "Medication name can only contain letters, digits, - and _")
-@Target(AnnotationTarget.FIELD, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER,
-    AnnotationTarget.PROPERTY,
-    AnnotationTarget.VALUE_PARAMETER,
-    AnnotationTarget.TYPE
-)
+@Target(AnnotationTarget.FIELD, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
 @Retention(AnnotationRetention.RUNTIME)
 @Constraint(validatedBy = [])
 annotation class MedicationName(
