@@ -43,6 +43,24 @@
 			"response": []
 		},
 		{
+			"name": "Register Medication",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"MDs123\",\r\n    \"weight\" : 100,\r\n    \"code\" : \"MEDICATION666\",\r\n    \"imageUrl\" : \"https://www.google.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://www.localhost:8080/medication/register"
+			},
+			"response": []
+		},
+		{
 			"name": "Get Available Robots To Load",
 			"request": {
 				"method": "GET",
@@ -68,6 +86,33 @@
 						"robot",
 						"loaded",
 						"medications"
+					],
+					"query": [
+						{
+							"key": "serialNumber",
+							"value": "ABC1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unload Robot",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://www.localhost:8080/robot/unload?serialNumber=ABC1",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"robot",
+						"unload"
 					],
 					"query": [
 						{
