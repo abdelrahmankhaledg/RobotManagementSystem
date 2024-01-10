@@ -20,7 +20,8 @@ enum class ResponseEnum(val code: String, val httpStatus: HttpStatus, val descri
 
     ROBOT_ALREADY_EXISTS("E6", HttpStatus.ALREADY_REPORTED, "The robot was registered before"),
     MEDICATION_ALREADY_EXISTS("E7", HttpStatus.ALREADY_REPORTED, "The medication was registered before"),
-    OPTIMISTIC_LOCKING_EXCEPTION("E8", HttpStatus.CONFLICT, "Operation failed. Please try again")
+    OPTIMISTIC_LOCKING_EXCEPTION("E8", HttpStatus.CONFLICT, "Operation failed. Please try again"),
+    MEDICATION_NAME_NOT_MATCHING_RULES("E9", HttpStatus.BAD_REQUEST, "Medication name can only contain letters, digits, - and _ and cannot be empty")
 
 
 }

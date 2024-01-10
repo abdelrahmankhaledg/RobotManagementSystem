@@ -1,6 +1,7 @@
 package com.example.robot.service.impl
 
 import com.example.robot.command.LoadRobotWithMedicationCommand
+import com.example.robot.exception.MedicationNameNotMatchingRulesException
 import com.example.robot.exception.RobotCannotBeLoadedException
 import com.example.robot.exception.RobotNotFoundException
 import com.example.robot.exception.WeightLimitExceededException
@@ -29,11 +30,19 @@ class CarriedMedicationServiceImpl(
     override fun loadRobotWithMedication(loadRobotWithMedicationCommand: LoadRobotWithMedicationCommand): Unit {
         val serialNumber : String = loadRobotWithMedicationCommand.serialNumber
         val medicationNames : List<String> = loadRobotWithMedicationCommand.medicationNames
+        validateMedicationNames(medicationNames)
         val robot : Robot = robotRepository.findByIdOrNull(serialNumber) ?: throw RobotNotFoundException()
         canLoadMedications(robot, medicationNames)
         loadRobot(robot, medicationNames)
     }
-
+    private fun validateMedicationNames(medicationNames : List<String?>){
+        val regexExpression : Regex = Regex("^[a-zA-Z0-9_-]+\$")
+        for(name : String? in medicationNames){
+            if(name == null || !regexExpression.matches(name)){
+                throw MedicationNameNotMatchingRulesException()
+            }
+        }
+    }
     private fun canLoadMedications(
         robot: Robot,
         medicationNames: List<String>

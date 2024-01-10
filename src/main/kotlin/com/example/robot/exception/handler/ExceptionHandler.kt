@@ -1,8 +1,8 @@
 package com.example.robot.exception.handler
 
 import com.example.robot.exception.*
-import com.example.robot.reponse.enums.ResponseEnum
 import com.example.robot.reponse.HttpResponse
+import com.example.robot.reponse.enums.ResponseEnum
 import org.springframework.dao.OptimisticLockingFailureException
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -65,6 +65,15 @@ class ExceptionHandler {
                 description = ResponseEnum.MEDICATION_ALREADY_EXISTS.description,
                 code = ResponseEnum.MEDICATION_ALREADY_EXISTS.code),
             ResponseEnum.MEDICATION_ALREADY_EXISTS.httpStatus)
+    }
+
+    @ExceptionHandler(MedicationNameNotMatchingRulesException::class)
+    fun handleMedicationNameNotMatchingRulesException(ex: MedicationNameNotMatchingRulesException): ResponseEntity<HttpResponse> {
+        return ResponseEntity(
+            HttpResponse(
+                description = ResponseEnum.MEDICATION_NAME_NOT_MATCHING_RULES.description,
+                code = ResponseEnum.MEDICATION_NAME_NOT_MATCHING_RULES.code),
+            ResponseEnum.MEDICATION_NAME_NOT_MATCHING_RULES.httpStatus)
     }
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
