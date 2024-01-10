@@ -1,6 +1,7 @@
 package com.example.robot.service.carriedmedicationservice
 
 import com.example.robot.command.LoadRobotWithMedicationCommand
+import com.example.robot.command.UnloadRobotCommand
 import com.example.robot.exception.MedicationNameNotMatchingRulesException
 import com.example.robot.exception.RobotCannotBeLoadedException
 import com.example.robot.exception.RobotNotFoundException
@@ -111,5 +112,22 @@ class CarriedMedicationServiceTest() {
         every { carriedMedicationRepository.getLoadedMedication(serialNumber) } returns emptyList()
         assert(carriedMedicationService.getLoadedMedication(getRobotLoadedMedicationsQuery).isEmpty())
     }
+
+    @Test
+    fun unloadRobotHappy(){
+        val unloadRobotCommand : UnloadRobotCommand = UnloadRobotCommand("ABC123")
+        every { robotDynamicStateRepository.findByIdOrNull(serialNumber) } returns robot.robotDynamicState
+        every { carriedMedicationRepository.unloadRobot(serialNumber) } returns Unit
+        every { robotDynamicStateRepository.save(any()) } returns robot.robotDynamicState
+        assertDoesNotThrow { carriedMedicationService.unloadRobot(unloadRobotCommand)}
+    }
+
+    @Test
+    fun unloadNonExistentRobot(){
+        val unloadRobotCommand : UnloadRobotCommand = UnloadRobotCommand("ABC123")
+        every { robotDynamicStateRepository.findByIdOrNull(serialNumber) } returns null
+        assertThrows<RobotNotFoundException> { carriedMedicationService.unloadRobot(unloadRobotCommand)}
+    }
+
 
 }

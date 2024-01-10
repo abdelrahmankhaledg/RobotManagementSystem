@@ -60,14 +60,14 @@ class CarriedMedicationServiceImpl(
     }
 
     private fun loadRobot(robot: Robot, medicationNames: List<String>){
-        changeRobotState(robot, RobotState.LOADING)
+        changeRobotState(robot.robotDynamicState, RobotState.LOADING)
         carriedMedicationRepository.storeLoadedMedication(robot.serialNumber, medicationNames)
-        changeRobotState(robot, RobotState.LOADED)
+        changeRobotState(robot.robotDynamicState, RobotState.LOADED)
     }
 
-    private fun changeRobotState(robot : Robot, newState : RobotState){
-        robot.robotDynamicState.robotState = newState
-        robotDynamicStateRepository.save(robot.robotDynamicState)
+    private fun changeRobotState(robotDynamicState: RobotDynamicState, robotState : RobotState){
+        robotDynamicState.robotState = robotState
+        robotDynamicStateRepository.save(robotDynamicState)
     }
 
     override fun getLoadedMedication(getRobotLoadedMedicationsQuery: GetRobotLoadedMedicationsQuery): List<String> {
@@ -75,7 +75,10 @@ class CarriedMedicationServiceImpl(
     }
 
     override fun unloadRobot(unloadRobotCommand: UnloadRobotCommand) {
+        val robotDynamicState = robotDynamicStateRepository
+            .findByIdOrNull(unloadRobotCommand.serialNumber)
+            ?: throw RobotNotFoundException()
         carriedMedicationRepository.unloadRobot(unloadRobotCommand.serialNumber)
-        changeRobotState(robotRepository.findById(unloadRobotCommand.serialNumber).get(), RobotState.IDLE)
+        changeRobotState(robotDynamicState, RobotState.IDLE)
     }
 }
