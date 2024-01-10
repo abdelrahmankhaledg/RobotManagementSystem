@@ -62,14 +62,12 @@ class CarriedMedicationServiceImpl(
     }
     fun getMedicationsWeight(medicationNames : List<String>, medications : MutableIterable<Medication>) : Int{
         var medicationsWeight : Int = 0
-        val uniqueMedicationNames : HashSet<String> = HashSet()
+        val uniqueMedicationNames : HashMap<String, Int> = HashMap()
         for(name in medicationNames){
-            uniqueMedicationNames.add(name)
+            uniqueMedicationNames[name] = uniqueMedicationNames.getOrDefault(name,0) + 1
         }
         for(medication in medications){
-            if(uniqueMedicationNames.contains(medication.name)){
-                medicationsWeight += medication.weight
-            }
+            medicationsWeight += medication.weight * uniqueMedicationNames[medication.name]!!
         }
         return medicationsWeight
     }

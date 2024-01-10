@@ -11,8 +11,7 @@ enum class ResponseEnum(val code: String, val httpStatus: HttpStatus, val descri
         "Robot is not idle or needs charging"),
 
     WEIGHT_LIMIT_EXCEEDED("E3", HttpStatus.UNPROCESSABLE_ENTITY,
-        """The total weight of the medications exceeds 
-            |the maximum weight that the robot can carry.""".trimMargin()),
+        "The total weight of the medications exceeds the maximum weight that the robot can carry."),
 
     METHOD_ARGUMENT_NOT_VALID("E4", HttpStatus.BAD_REQUEST,""),
 
