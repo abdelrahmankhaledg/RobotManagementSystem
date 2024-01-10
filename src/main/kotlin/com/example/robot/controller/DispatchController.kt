@@ -14,9 +14,13 @@ import com.example.robot.resource.LoadRobotWithMedicationResource
 import com.example.robot.resource.RegisterRobotResource
 import com.example.robot.service.CarriedMedicationService
 import com.example.robot.service.RobotService
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotNull
-
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
@@ -30,6 +34,11 @@ class DispatchController(
     @Autowired val robotService: RobotService
 ) {
     @PostMapping("/register")
+    @Operation(summary = "Register a new robot")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "The robot has been registered successfully",
+            content = [ Content(mediaType = "application/json",
+                schema = Schema(implementation = HttpResponseWithPayload::class)) ])])
     fun registerRobot(
         @NotNull @Valid @RequestBody registerRobotResource: RegisterRobotResource
     ) : ResponseEntity<HttpResponseWithPayload>{
@@ -48,6 +57,11 @@ class DispatchController(
     }
 
     @PostMapping("/load")
+    @Operation(summary = "Load a robot with medication items")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "The robot has been loaded successfully",
+            content = [ Content(mediaType = "application/json",
+                schema = Schema(implementation = HttpResponse::class)) ])])
     fun loadRobotWithMedication(
         @NotNull @Valid @RequestBody loadRobotWithMedicationResource: LoadRobotWithMedicationResource
     ) : ResponseEntity<HttpResponse>
@@ -64,6 +78,11 @@ class DispatchController(
     }
 
     @GetMapping("/loaded/medications")
+    @Operation(summary = "Retrieve the names of the loaded medications for a given robot")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "The items have been retrieved successfully",
+            content = [ Content(mediaType = "application/json",
+                schema = Schema(implementation = HttpResponseWithPayload::class)) ])])
     fun getRobotLoadedMedication(
         @NotNull @Valid getRobotLoadedMedicationsResource: GetRobotLoadedMedicationsResource
     ) : ResponseEntity<HttpResponseWithPayload>{
@@ -81,6 +100,11 @@ class DispatchController(
         )
     }
     @GetMapping("/available")
+    @Operation(summary = "Retrieve the robots that are available for loading")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "The robots have been retrieved successfully",
+            content = [ Content(mediaType = "application/json",
+                schema = Schema(implementation = HttpResponseWithPayload::class)) ])])
     fun getAvailableRobotsForLoading() : ResponseEntity<HttpResponseWithPayload>{
         val availableRobotsForLoading : List<Robot> = robotService.getAvailableRobotsForLoading()
         return ResponseEntity(
@@ -96,6 +120,11 @@ class DispatchController(
     }
 
     @GetMapping("/battery")
+    @Operation(summary = "Check the battery level for a given robot")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "The battery level has been retrieved successfully",
+            content = [ Content(mediaType = "application/json",
+                schema = Schema(implementation = HttpResponseWithPayload::class)) ])])
     fun checkRobotBatteryLevel(
         @NotNull @Valid checkRobotBatteryLevelResource: CheckRobotBatteryLevelResource
     ) : ResponseEntity<HttpResponseWithPayload>{
@@ -113,6 +142,11 @@ class DispatchController(
         )
     }
     @DeleteMapping("/unload")
+    @Operation(summary = "Make robot unload medications")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "The robot has been unloaded successfully",
+            content = [ Content(mediaType = "application/json",
+                schema = Schema(implementation = ResponseEntity::class)) ])])
     fun unloadRobot(@RequestParam serialNumber : String) : ResponseEntity<String>{
         carriedMedicationService.unloadRobot(serialNumber)
         return ResponseEntity.ok("Robot $serialNumber was unloaded")
