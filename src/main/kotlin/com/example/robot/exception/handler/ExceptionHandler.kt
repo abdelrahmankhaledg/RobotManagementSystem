@@ -5,6 +5,7 @@ import com.example.robot.reponse.HttpResponse
 import com.example.robot.reponse.enums.ResponseEnum
 import org.springframework.dao.OptimisticLockingFailureException
 import org.springframework.http.ResponseEntity
+import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.web.HttpRequestMethodNotSupportedException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
@@ -110,5 +111,14 @@ class ExceptionHandler {
                 description = ResponseEnum.INTERNAL_SERVER_ERROR.description,
                 code = ResponseEnum.INTERNAL_SERVER_ERROR.code),
             ResponseEnum.INTERNAL_SERVER_ERROR.httpStatus)
+    }
+    @ExceptionHandler(HttpMessageNotReadableException::class)
+    fun handleHttpMessageNotReadableException(ex: HttpMessageNotReadableException)
+    : ResponseEntity<HttpResponse> {
+        return ResponseEntity(
+            HttpResponse(
+                description = ResponseEnum.HTTP_MESSAGE_NOT_READABLE.description,
+                code = ResponseEnum.HTTP_MESSAGE_NOT_READABLE.code),
+            ResponseEnum.HTTP_MESSAGE_NOT_READABLE.httpStatus)
     }
 }
