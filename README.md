@@ -11,7 +11,7 @@ The system provides the following functionalitites :
 - Checking loaded medication items for a given robot.
 - Checking available robots for loading.
 - Check robot battery level for a given robot.
-- Periodic logging of the battery levels of robots.
+- Periodic logging of the battery levels of robots into DB.
 
 ## Run the project locally
 RobotManagementSystem is a Spring Boot application built using Maven. You can build a jar file and run it from the command line (it should work with Java 17 or newer) : 
