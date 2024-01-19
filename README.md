@@ -2,16 +2,16 @@
 
 ## Description
 
-RobotManagementSystem is a REST API that allows the clients to communicate with robots. **The specific communication with robots is outside the scope of the API.**
+RobotManagementSystem is a REST API that allows clients to communicate with robots. **The specific communication with robots is outside the scope of the API.**
 
-The system provides the following functionalitites:
+The system provides the following functionalities:
 
 - Registering a robot.
 - Registering a medication.
 - Loading a robot with medication items.
 - Checking loaded medication items for a given robot.
 - Checking available robots for loading.
-- Check robot battery level for a given robot.
+- Check the robot battery level for a given robot.
 - Periodic logging of the battery levels of robots into DB.
 
 ## Run the project locally
